@@ -75,4 +75,3 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                                      host=host,
                                                      database=db_name)
     return cnx
-
