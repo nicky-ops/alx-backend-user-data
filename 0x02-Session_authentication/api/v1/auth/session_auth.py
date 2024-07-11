@@ -34,12 +34,7 @@ class SessionAuth(Auth):
         '''
         This method uses Session ID to identify a User
         '''
-        if request is None:
-            return None
         session_cookie = self.session_cookie(request)
-        if session_cookie is None:
-            return None
         user_id = self.user_id_for_session_id(session_cookie)
-        if user_id is None:
-            return None
-        return User.get(user_id)
+        user = User.get(user_id)
+        return user
