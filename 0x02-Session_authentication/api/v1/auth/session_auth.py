@@ -11,6 +11,7 @@ class SessionAuth(Auth):
     This class implements session based authentication
     '''
     user_id_by_session_id = {}
+
     def create_session(self, user_id: str = None) -> str:
         '''
         This function creates a session and returns the session ID
@@ -20,4 +21,3 @@ class SessionAuth(Auth):
         session_id = str(uuid.uuid4())
         self.user_id_by_session_id[session_id] = user_id
         return session_id
-
