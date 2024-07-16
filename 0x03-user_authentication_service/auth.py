@@ -116,6 +116,8 @@ class Auth:
             user = self._db.find_user_by(reset_token)
         except NoResultFound:
             raise ValueError
+        except Exception:
+            raise ValueError
         else:
             hashed_password = _hash_password(password)
             user.hashed_password = hashed_password
