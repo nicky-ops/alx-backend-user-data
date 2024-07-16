@@ -117,6 +117,8 @@ class Auth:
         except NoResultFound:
             raise ValueError
         else:
-            hashed_password = _hash_password(password)
-            user.hashed_password = hashed_password
-            user.reset_token = None
+            if user is not None:
+                hashed_password = _hash_password(password)
+                user.hashed_password = hashed_password
+                user.reset_token = None
+                return None
