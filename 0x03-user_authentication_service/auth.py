@@ -99,7 +99,7 @@ class Auth:
         This method generates a reset password token
         '''
         try:
-            user = self._db_find_user_by(email=email)
+            user = self._db.find_user_by(email=email)
         except NoResultFound:
             raise ValueError
         else:
