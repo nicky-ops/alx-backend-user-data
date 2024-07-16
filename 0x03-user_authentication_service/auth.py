@@ -114,11 +114,10 @@ class Auth:
         '''
         try:
             user = self._db.find_user_by(reset_token)
-        except NoResultFound:
-            raise ValueError
-        else:
             if user is not None:
                 hashed_password = _hash_password(password)
                 user.hashed_password = hashed_password
                 user.reset_token = None
-                return None
+            return None
+        except Exception:
+            raise ValueError
