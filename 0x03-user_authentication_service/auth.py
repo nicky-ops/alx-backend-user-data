@@ -103,5 +103,7 @@ class Auth:
             if user:
                 user.reset_token = _generate_uuid()
                 return user.reset_token
+            else:
+                raise ValueError
         except NoResultFound:
             raise ValueError
