@@ -83,4 +83,4 @@ class Auth:
             if user:
                 return user
         except NoResultFound:
-            return None            
+            return None
