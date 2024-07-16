@@ -61,12 +61,25 @@ def logout() -> str:
             abort(400)
         user = AUTH.get_user_from_session_id(session_id)
         if not user:
-            abort(403)
+            return 403
         else:
             AUTH.destroy_session(user.id)
             return redirect("/")
     except Exception:
-        abort(403)
+        return 403
+
+
+@app.route("/profile", methods=["GET"])
+def profile() -> str:
+    '''
+    retrive a user profile
+    '''
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+    if session_id is None or user is None:
+        return 403
+    else:
+        return jsonify({"email": user.email}), 200
 
 
 if __name__ == "__main__":
