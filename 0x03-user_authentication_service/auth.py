@@ -98,12 +98,9 @@ class Auth:
         '''
         This method generates a reset password token
         '''
-        try:
-            user = self._db_find_user_by(email=email)
-            if user:
-                user.reset_token = _generate_uuid()
-                return user.reset_token
-            else:
-                raise ValueError
-        except NoResultFound:
+        user = self._db_find_user_by(email=email)
+        if user:
+            user.reset_token = _generate_uuid()
+            return user.reset_token
+        else:
             raise ValueError
