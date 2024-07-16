@@ -62,7 +62,7 @@ def logout() -> str:
             AUTH.destroy_session(user.id)
             return redirect("/", code=302)
     except NoResultFound:
-            abort(403)
+        abort(403)
 
 
 if __name__ == "__main__":
