@@ -12,7 +12,7 @@ AUTH = Auth()
 
 
 @app.route("/", methods=["GET"])
-def message():
+def home():
     """
     returns a JSON payload for the endpoint
     """
