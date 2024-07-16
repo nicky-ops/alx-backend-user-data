@@ -5,6 +5,7 @@ Basic Flask app
 from flask import Flask
 from flask import jsonify, request, abort, make_response
 from auth import Auth
+import auth
 
 
 app = Flask(__name__)
@@ -95,6 +96,27 @@ def get_reset_password_token() -> str:
         else:
             reset_token = AUTH.get_reset_password_token(email)
             return jsonify({"email": user.email, "reset_token": reset_token})
+    except Exception:
+        abort(403)
+
+
+@app.route("/reset_password", methods=["PUT"])
+def update_password() -> str:
+    '''
+    This method implements the update password route
+    '''
+    email = request.form.get('email')
+    reset_token = request.form.get('reset_token')
+    new_password = request.form.get('new_password')
+    if not reset_token:
+        abort(403)
+    try:
+        user = AUTH._db.find_user_by(email=email)
+        if user is None:
+            abort(403)
+        else:
+            AUTH.update_password(reset_token, new_password)
+            return jsonify({"email": user.email, "message": "Password updated"}), 200
     except Exception:
         abort(403)
 
