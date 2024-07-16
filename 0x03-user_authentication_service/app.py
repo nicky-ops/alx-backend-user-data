@@ -56,12 +56,13 @@ def logout() -> str:
     logout function
     '''
     session_id = request.cookies.get('session_id')
-    user = AUTH.get_user_from_session_id(session_id)
-    if user:
-        AUTH.destroy_session(user.id)
-        return redirect("/", code=302)
-    else:
-        abort(403)
+    try:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            AUTH.destroy_session(user.id)
+            return redirect("/", code=302)
+    except NoResultFound:
+            abort(403)
 
 
 if __name__ == "__main__":
