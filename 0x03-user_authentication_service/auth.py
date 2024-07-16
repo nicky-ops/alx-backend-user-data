@@ -78,8 +78,9 @@ class Auth:
         '''
         This method finds a user by their session ID
         '''
-        user = self._db.find_user_by(session_id=session_id)
-        if user:
-            return user
-        else:
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            if user:
+                return user
+        except NoResultFound:
             return None            
