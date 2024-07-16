@@ -27,9 +27,11 @@ class Auth:
         '''
         This method registers a new user
         '''
-        exists = self._db._session.query(User).filter_by(email=email)
-        if exists:
-            raise ValueError(f"User {email} already exists")
-        hashed_pwd = _hash_password(password)
-        new_user = self._db.add_user(email, hashed_pwd)
-        return new_user
+        try:
+            self._db.find_user_by(email=email)
+        except NoResultFound:
+            hashed_pwd = _hash_password(password)
+            new_user = self._db.add_user(email, hashed_pwd)
+            return new_user
+        else:
+            raise ValueError(f'user {email} already exists')
