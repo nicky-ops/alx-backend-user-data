@@ -93,7 +93,7 @@ def get_reset_password_token() -> str:
         if user is None:
             abort(403)
         else:
-           reset_token = AUTH.get_reset_password_token(email)
+            reset_token = AUTH.get_reset_password_token(email)
             return jsonify({"email": user.email, "reset_token": reset_token})
     except Exception:
         abort(403)
