@@ -118,6 +118,6 @@ class Auth:
             user.hashed_password = hashed_password
             user.reset_token = None
             return None
-        except NoResultFound:
+        except Exception:
             raise ValueError
         return None
